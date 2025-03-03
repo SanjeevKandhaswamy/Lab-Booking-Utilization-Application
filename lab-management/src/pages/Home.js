@@ -1,4 +1,14 @@
 import React from 'react';
+import {ReactTyped} from "react-typed"
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Pagination, Navigation } from "swiper/modules";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { FaArrowAltCircleRight } from "react-icons/fa";
+import { useRef } from 'react';
+
 
 const Home = () => {
   const labTypes = [
@@ -10,23 +20,17 @@ const Home = () => {
     { name: 'Electronic Labs', icon: '📱', description: 'Electronic component testing and design' },
     { name: 'Physics Labs', icon: '🔭', description: 'Experimental setup for physics research' }
   ];
-
-  const features = [
-    { title: 'Easy Scheduling', description: 'Simple interface to request and manage lab time' },
-    { title: 'Real-time Updates', description: 'Instant notifications about lab availability' },
-    { title: 'Resource Tracking', description: 'Monitor equipment usage and availability' },
-    { title: 'Automated Reports', description: 'Generate usage reports for departments' }
-  ];
+  const swiperef = useRef(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-16 pt-8">
-          <h1 className="text-5xl font-bold text-blue-700 mb-6">
+          <h1 className="text-6xl font-bold text-blue-700 mb-10">
             Welcome to Lab Management System
           </h1>
-          <p className="text-gray-600 text-xl max-w-3xl mx-auto">
+          <p className="text-gray-500 text-2xl max-w-3xl mx-auto">
             Efficiently manage and allocate laboratory resources across departments
             with our comprehensive solution for faculty and students.
           </p>
@@ -42,15 +46,22 @@ const Home = () => {
 
         {/* Features Section */}
         <div className="mb-16">
-          <h2 className="text-3xl font-semibold mb-8 text-center text-gray-800">Key Features</h2>
-          <div className="grid md:grid-cols-4 gap-6">
-            {features.map((feature, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-100">
-                <h3 className="font-semibold text-lg mb-2 text-blue-600">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </div>
-            ))}
-          </div>
+          <h2 className="text-6xl font-bold mb-8 text-center text-gray-800">Key Features</h2>
+      <div className="flex  justify-center gap-4 mb-8 text-4xl">
+      <ReactTyped
+          strings={[
+            "Easy Scheduling...",
+            "Real-time Updates...",
+            "Resource Tracking...",
+            "Automated Reports...",
+
+          ]}
+          typeSpeed={60}
+          backSpeed={50}
+          loop
+        />
+      </div>
+       
         </div>
 
         {/* User Roles Section */}
@@ -80,14 +91,15 @@ const Home = () => {
             </div>
             <button className="mt-6 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
               Student Login
+              
             </button>
           </div>
         </div>
 
         {/* Lab Types Section */}
         <div className="mt-16 mb-16">
-          <h2 className="text-3xl font-semibold mb-8 text-center text-gray-800">Available Laboratory Types</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <h2 className="text-3xl font-semibold mb-11 text-center text-gray-800 ">Available Laboratory Types</h2>
+          {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {labTypes.map((lab, index) => (
               <div key={index} className="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-all hover:-translate-y-1 duration-300 border border-gray-100">
                 <div className="text-4xl mb-3">{lab.icon}</div>
@@ -95,47 +107,48 @@ const Home = () => {
                 <p className="text-gray-600 text-sm">{lab.description}</p>
               </div>
             ))}
-          </div>
+          </div> */}
+          <div className='flex items-center '>
+            <button className='text-3xl' onClick={()=>swiperef.current?.slidePrev()}>
+            <FaArrowAltCircleLeft />
+            </button>
+            
+          <Swiper
+          onSwiper={(swiper)=>swiperef.current= swiper}
+          slidesPerView={1}
+          spaceBetween={20}
+          Navigation={{enabled:true}}
+          Pagination={{enabled:true}}
+          loop={true}
+          breakpoints={{
+            640:{slidesPerView: 2},
+            768:{slidesPerView: 3},
+            1024:{slidesPerView: 4}
+          }}
+          modules={[Pagination,Navigation]}
+          className='mySwiper'
+          >
+            {labTypes.map((labs,index)=>{
+              return(
+                <SwiperSlide key={index}>
+                  <div className="bg-white p-6  rounded-xl shadow-md text-center hover:shadow-xl transition-all hover:-translate-y-1 duration-300 border border-gray-100">
+                  <div className='text-3xl'>{labs.icon}</div>
+                  <h3 className='text-2xl font-semibold'>{labs.name}</h3>
+                  <p className='text-gray-600 text-xl'>{labs.description}</p>
+                </div>
+                </SwiperSlide>
+              )
+            })}
+            
+          </Swiper>
+          <button className='text-3xl' onClick={()=>swiperef.current?.slideNext()}>
+            <FaArrowAltCircleRight />
+            </button>
+            </div>
         </div>
 
         {/* Footer */}
-        <footer className="mt-20 pt-10 border-t border-gray-200">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="font-bold text-lg mb-4 text-gray-800">Lab Management System</h3>
-              <p className="text-gray-600">Simplifying laboratory management for educational institutions.</p>
-            </div>
-            <div>
-              <h3 className="font-bold text-lg mb-4 text-gray-800">Quick Links</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Home</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Help</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold text-lg mb-4 text-gray-800">Resources</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li><a href="#" className="hover:text-blue-600 transition-colors">User Guide</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">FAQ</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Lab Policies</a></li>
-                <li><a href="#" className="hover:text-blue-600 transition-colors">Equipment List</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold text-lg mb-4 text-gray-800">Contact</h3>
-              <ul className="space-y-2 text-gray-600">
-                <li className="flex items-center"><span className="mr-2">📧</span> support@labsystem.edu</li>
-                <li className="flex items-center"><span className="mr-2">📞</span> +1 (555) 123-4567</li>
-                <li className="flex items-center"><span className="mr-2">📍</span> University Campus, Building B</li>
-              </ul>
-            </div>
-          </div>
-          <div className="text-center py-6 border-t border-gray-200 text-gray-600">
-            <p>© {new Date().getFullYear()} Lab Management System. All rights reserved.</p>
-          </div>
-        </footer>
+       
       </div>
     </div>
   );

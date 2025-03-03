@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
 import FacultyDashboard from "./pages/FacultyDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
-
+import Footer from "./components/footer";
 function App() {
   return (
     <Router>
@@ -18,6 +18,7 @@ function App() {
         <Route path="/faculty" element={<FacultyDashboard />} />
         <Route path="/student" element={<StudentDashboard />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 }

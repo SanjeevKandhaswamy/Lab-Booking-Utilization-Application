@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Schedule from '../components/schedule';
 const FacultyDashboard = () => {
   const [labRequest, setLabRequest] = useState({
     labType: '',
@@ -146,6 +146,9 @@ const FacultyDashboard = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        {/* <Schedule /> */}
       </div>
     </div>
   );
